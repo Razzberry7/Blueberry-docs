@@ -2,7 +2,7 @@
 
 This is the second of the Blueberry Documents that were created for the Rowan Math Department's Blueberry Project. This will eventually be combined with the original Blueberry Docs.
 
-Check out the content pages bundled with this sample book to see more.
+See table of contents below for quick access to documentation.
 
 ```{tableofcontents}
 ```

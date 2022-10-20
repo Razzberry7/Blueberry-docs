@@ -1,11 +1,8 @@
-# Welcome to your Jupyter Book
+# Welcome to the Rowan Blueberry Docs 2
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+This is the second of the Blueberry Documents that were created for the Rowan Math Department's Blueberry Project. This will eventually be combined with the original Blueberry Docs.
 
-Check out the content pages bundled with this sample book to see more.
+See table of contents below for quick access to documentation.
 
 ```{tableofcontents}
 ```
