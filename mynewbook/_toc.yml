@@ -7,3 +7,7 @@ chapters:
 - file: getting-started
 - file: annotating
 - file: exporting
+- file: environmentsetup
+- file: yolov5 
+- file: deepsort
+- file: demosite 
