@@ -36,4 +36,3 @@ The first thing you will want to do is assign the dataset to someone for annotat
 ![New Dataset Step 4](../images/New-Dataset-Step4.png)
 
 Once you have the images assigned to someone, you can finally begin annotating!
-

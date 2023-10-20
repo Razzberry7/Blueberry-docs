@@ -16,22 +16,22 @@ Before training with a YOLOv5 model, a dataset in YOLOv5 format is needed.
 
 ### Step 1
 First, select the Roboflow dataset you would like to use:
-![step1](images/roboflowsteps/step2.png)
+![step1](../images/roboflowsteps/step1.png)
 
 In this example, we will use Brandon's dataset.
 ### Step 2
-![step2](images/roboflowsteps/step2.png)
+![step2](../images/roboflowsteps/step2.png)
 
 If there are no versions available make one and apply the appropriate preprocessing and augmentation steps. Most of the time, this would mean applying NO preprocessing or augmentations at all since we perform those steps outside of Roboflow.
 ### Step 3
 After you have selected a dataset version, click `Export`. This modal should pop up:
-![step3](images/roboflowsteps/step2.png)
+![step3](../images/roboflowsteps/step3.png)
 
 Click the dropdown bar under `Format` and choose `YOLO v5 PyTorch`. Also make sure you have the `show download code` radio box selected. Now, click `Continue`.
 
 ### Step 4
 Afterwards, you should see this modal:
-![step4](images/roboflowsteps/step2.png)
+![step4](../images/roboflowsteps/step4.png)
 
 Select the `Terminal` tab and make sure to copy the command line command - you will paste it into Lambda in the next few steps.
 

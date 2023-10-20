@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -76,6 +77,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -319,10 +329,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -330,7 +340,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -403,24 +413,24 @@ To clone Ocho-lytic’s YOLOv5 repository, run:</p>
 <section id="step-1">
 <h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this heading">#</a></h3>
 <p>First, select the Roboflow dataset you would like to use:
-<img alt="step1" src="_images/step2.png" /></p>
+<img alt="step1" src="../images/roboflowsteps/step1.png" /></p>
 <p>In this example, we will use Brandon’s dataset.</p>
 </section>
 <section id="step-2">
 <h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this heading">#</a></h3>
-<p><img alt="step2" src="_images/step2.png" /></p>
+<p><img alt="step2" src="../images/roboflowsteps/step2.png" /></p>
 <p>If there are no versions available make one and apply the appropriate preprocessing and augmentation steps. Most of the time, this would mean applying NO preprocessing or augmentations at all since we perform those steps outside of Roboflow.</p>
 </section>
 <section id="step-3">
 <h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this heading">#</a></h3>
 <p>After you have selected a dataset version, click <code class="docutils literal notranslate"><span class="pre">Export</span></code>. This modal should pop up:
-<img alt="step3" src="_images/step2.png" /></p>
+<img alt="step3" src="../images/roboflowsteps/step3.png" /></p>
 <p>Click the dropdown bar under <code class="docutils literal notranslate"><span class="pre">Format</span></code> and choose <code class="docutils literal notranslate"><span class="pre">YOLO</span> <span class="pre">v5</span> <span class="pre">PyTorch</span></code>. Also make sure you have the <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">download</span> <span class="pre">code</span></code> radio box selected. Now, click <code class="docutils literal notranslate"><span class="pre">Continue</span></code>.</p>
 </section>
 <section id="step-4">
 <h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this heading">#</a></h3>
 <p>Afterwards, you should see this modal:
-<img alt="step4" src="_images/step2.png" /></p>
+<img alt="step4" src="../images/roboflowsteps/step4.png" /></p>
 <p>Select the <code class="docutils literal notranslate"><span class="pre">Terminal</span></code> tab and make sure to copy the command line command - you will paste it into Lambda in the next few steps.</p>
 </section>
 <section id="step-5">
@@ -503,11 +513,10 @@ Very basically, you can train on the data with some default configurations with:
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="environmentsetup.html"
@@ -527,10 +536,7 @@ Very basically, you can train on the data with some default configurations with:
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -606,8 +612,8 @@ By Brandon McHenry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
