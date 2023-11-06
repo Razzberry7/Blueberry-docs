@@ -11,3 +11,4 @@ chapters:
 - file: yolov5 
 - file: deepsort
 - file: demosite 
+- file: software
