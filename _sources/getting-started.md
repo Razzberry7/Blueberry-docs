@@ -2,21 +2,21 @@
 
 This guide should help new prospective students get started with Roboflow and should transition into the next section, which details the annotation process.
 
-(section-label)=
+
 ## Creating an Account
 
 Getting started with Roboflow is fairly simple. You will have to create an account, preferably with your school email address. Not much to detail here.
 
 (Usually Professor H. Nguyen will help facilitate this process by adding you to the correct group)
 
-(section-label)=
+
 ## The Roboflow Home Page
 
 ![Roboflow Home Page](../images/Roboflow-Home.png)
 
 In the home page, you should be defaulted to a workspace that you belong to. If you do not see a <b>Blueberries</b> workspace on the left-hand side, then please talk to Professor H. Nguyen to be added to our group. Open the <b>Blueberries</b> workspace and you will be greeted with a home page that looks like the attached photo.
 
-(section-label)=
+
 ## Projects
 
 So in the home page of the <b>Blueberries</b> workspace, we have the option of making a new project or viewing existing projects. 

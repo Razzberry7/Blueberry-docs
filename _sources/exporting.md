@@ -2,7 +2,7 @@
 
 This guide should help new prospective students export completed datasets that are going to be used for training the Yolo model.
 
-(section-label)=
+
 ## Generating a New Version of the Dataset
 
 ![Export Step 1](../images/Export-Step1.png)
