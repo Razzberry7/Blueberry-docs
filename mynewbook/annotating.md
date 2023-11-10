@@ -2,7 +2,7 @@
 
 In this section, we will discuss not only how to annotate on Roboflow, but how WE (previous students) annotate our specific data.
 
-(section-label)=
+
 ## Getting Started - Annotating
 
 Getting started annotating is a very straight-forward process. 
