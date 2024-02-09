@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Exporting an Annotated Dataset (to Lambda) &#8212; Rowan Blueberry Project</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cvat/exporting';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Virtual Environments in Python Projects" href="../yolo/venv.html" />
+    <link rel="prev" title="Annotating" href="annotating.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Rowan Blueberry Project - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Rowan Blueberry Project - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to the Rowan Blueberry Docs
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using Roboflow</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../roboflow/getting-started.html">Getting Started with Roboflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roboflow/annotating.html">Annotating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roboflow/exporting.html">Exporting an Annotated Dataset</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using CVAT</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started with CVAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="annotating.html">Annotating</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exporting an Annotated Dataset (to Lambda)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">YOLOv5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../yolo/venv.html">Virtual Environments in Python Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yolo/lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yolo/training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yolo/validating.html">Validating a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../yolo/cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scripts/Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../scripts/scripts.html">Custom-Made Scripts for this Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/software.html">Software for the project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../misc/blueberry.html">What Blueberries Look Like</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/demosite.html">Demo Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/docsite.html">How to Work on the Documentation Website (This Site!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/terms.html">Important Terms &amp; Definitions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcvat/exporting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/cvat/exporting.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exporting an Annotated Dataset (to Lambda)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-on-cvat">Exporting on CVAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-file-structure-modeled-after-roboflow-export">Dataset File Structure (Modeled after Roboflow Export)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recreating-this-file-structure-with-cvat">Recreating this File Structure with CVAT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cvat-export-helper">The CVAT Export Helper</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#buttons">Buttons</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exporting-an-annotated-dataset-to-lambda">
+<h1>Exporting an Annotated Dataset (to Lambda)<a class="headerlink" href="#exporting-an-annotated-dataset-to-lambda" title="Permalink to this heading">#</a></h1>
+<p>Training a model is very resource-intensive which requires us to utilize the power on the Lambda servers. In order to train a model, we will need to export our datasets to the Lambda servers. This process can be troublesome, so this documentation should make it easier.</p>
+<section id="exporting-on-cvat">
+<h2>Exporting on CVAT<a class="headerlink" href="#exporting-on-cvat" title="Permalink to this heading">#</a></h2>
+<p>To export on CVAT, go to any task you wish to export and click the <code class="docutils literal notranslate"><span class="pre">Actions</span></code> button at the top right. Then click on <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">task</span> <span class="pre">dataset</span></code>.</p>
+<p><img alt="CE 1" src="../_images/ce1.png" /></p>
+<p>This will open up a pop-up that looks like this:</p>
+<p><img alt="CE 2" src="../_images/ce2.png" /></p>
+<p>On this pop-up, change the Export format to <code class="docutils literal notranslate"><span class="pre">YOLO</span> <span class="pre">1.1</span></code> (located at the bottom of the drop-down menu), enable the <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">Images</span></code> toggle, and give the exported dataset a name following the naming conventions outlined here: <a href="https://docs.google.com/document/d/1oJtplLzHP9oU1HK5gBsq3X6EPYgcz3QsRaoJuoB4UE4/edit?usp=sharing">Naming Convention</a></p>
+<p><img alt="CE 3" src="../_images/ce3.png" /></p>
+<p>The dataset should then start downloading locally in a ZIP file like this one:</p>
+<p><img alt="CE 4" src="../_images/ce4.png" /></p>
+<p>If you extract the export from this ZIP file, our data looks like this.</p>
+<p><img alt="CE 5" src="../_images/ce5.png" /></p>
+<p>This is actually a problem, because our data isn’t following the file structure that we have traditionally used (not to mention the images and labels are not kept separate, which could be problematic, and there is no data.yaml file that YOLO needs for their scripts). To resolve this, let’s look at what file structure DOES work (and that we use).</p>
+</section>
+<section id="dataset-file-structure-modeled-after-roboflow-export">
+<h2>Dataset File Structure (Modeled after Roboflow Export)<a class="headerlink" href="#dataset-file-structure-modeled-after-roboflow-export" title="Permalink to this heading">#</a></h2>
+<p>Students in this research project have traditionally used Roboflow as the platform to annotate and export data. As of Fall 2023, we have switched to using CVAT, which means our process of exporting has changed. To match the organization of our datasets with our older “Roboflow-exported” data, we have a series of steps to export data from CVAT.</p>
+<p>But, before we blindly export our data following those steps, we must know what structure our files will follow. Here’s what the file structure looks like:</p>
+<p><img alt="File Structure" src="../_images/file-structure.png" /></p>
+<p>The top-most directory is the name of the dataset that you are exporting. (See above for the naming convention outline).</p>
+<p>Within this directory there are subdirectories for <code class="docutils literal notranslate"><span class="pre">/train/</span></code>, <code class="docutils literal notranslate"><span class="pre">/valid/</span></code>, and/or <code class="docutils literal notranslate"><span class="pre">/test/</span></code>. Whether or not these subdirectories exist depends on your use case for the data.</p>
+<p>Within the <code class="docutils literal notranslate"><span class="pre">/train/</span></code>, <code class="docutils literal notranslate"><span class="pre">/valid/</span></code>, and/or <code class="docutils literal notranslate"><span class="pre">/test/</span></code> directories, there are two subdirectories, <code class="docutils literal notranslate"><span class="pre">/images/</span></code> and <code class="docutils literal notranslate"><span class="pre">/labels/</span></code>. As you can guess, the images for the dataset are in the <code class="docutils literal notranslate"><span class="pre">/images/</span></code> directory, and the annotations are found in a txt file (with the same name as the images) in the <code class="docutils literal notranslate"><span class="pre">/labels/</span></code> directory.</p>
+<p>Then, finally, on the same level as the <code class="docutils literal notranslate"><span class="pre">/train/</span></code>, <code class="docutils literal notranslate"><span class="pre">/valid/</span></code>, and/or <code class="docutils literal notranslate"><span class="pre">/test/</span></code> directory(s), there is a data.yaml file (yaml is special file type, just think of it as another kind of txt file). This data.yaml file is used to store paths to our data when either training, validating, or testing a model.</p>
+<p>The inside of a data.yaml file looks something like this (can be different depending on classes):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">:</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">training_data</span><span class="o">/</span><span class="p">[</span><span class="n">DATASET_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">train</span><span class="o">/</span><span class="n">images</span>
+<span class="n">val</span><span class="p">:</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">training_data</span><span class="o">/</span><span class="p">[</span><span class="n">DATASET_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">valid</span><span class="o">/</span><span class="n">images</span>
+<span class="n">test</span><span class="p">:</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">training_data</span><span class="o">/</span><span class="p">[</span><span class="n">DATASET_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">images</span>
+
+<span class="n">nc</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">names</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The values for train/val/test, are all relative paths from where the <a class="reference external" href="http://train.py">train.py</a>, <a class="reference external" href="http://val.py">val.py</a>, or <a class="reference external" href="http://detect.py">detect.py</a> scripts (default scripts in the YOLOv5 repository) are located. If these paths are incorrect, running any YOLOv5 scripts will produce errors relating to paths that don’t exist, so it should be easy to tell if you have incorrect paths.</p>
+<p>That example uses <b>relative paths</b>, but we’re starting to use more <b>absolute paths</b> to avoid issues with relative path locations. So, a data.yaml can also look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">:</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">data2</span><span class="o">/</span><span class="n">drone</span><span class="o">/</span><span class="p">[</span><span class="n">YOUR_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">yolov5</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">training_data</span><span class="o">/</span><span class="p">[</span><span class="n">DATASET_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">train</span><span class="o">/</span><span class="n">images</span>
+<span class="n">val</span><span class="p">:</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">data2</span><span class="o">/</span><span class="n">drone</span><span class="o">/</span><span class="p">[</span><span class="n">YOUR_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">yolov5</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">training_data</span><span class="o">/</span><span class="p">[</span><span class="n">DATASET_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">valid</span><span class="o">/</span><span class="n">images</span>
+<span class="n">test</span><span class="p">:</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">data2</span><span class="o">/</span><span class="n">drone</span><span class="o">/</span><span class="p">[</span><span class="n">YOUR_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">yolov5</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">training_data</span><span class="o">/</span><span class="p">[</span><span class="n">DATASET_NAME</span><span class="p">]</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">images</span>
+
+<span class="n">nc</span><span class="p">:</span> <span class="mi">2</span>
+<span class="n">names</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In the data.yaml, there is also data relating to the number of classes (nc), and what the names of the classes are. This values will be different depending on the model you are training.</p>
+</section>
+<section id="recreating-this-file-structure-with-cvat">
+<h2>Recreating this File Structure with CVAT<a class="headerlink" href="#recreating-this-file-structure-with-cvat" title="Permalink to this heading">#</a></h2>
+<p>Because recreating that file structure can be tedious, we’re going to use a custom-made application to expedite the process.</p>
+<section id="the-cvat-export-helper">
+<h3>The CVAT Export Helper<a class="headerlink" href="#the-cvat-export-helper" title="Permalink to this heading">#</a></h3>
+<p>The program we’re going to use is called “The CVAT Export Helper”, and can be found on this documentation website on the <a class="reference internal" href="../scripts/software.html"><span class="doc std std-doc">Software</span></a> page.</p>
+<p><img alt="CEH" src="../_images/ceh.png" /></p>
+<pre>
+Note: As of 1/18/24 the program does NOT work on Mac/Linux.
+</pre>
+<p>After downloading and extracting the program from the zip file, you should see a folder that looks like this:</p>
+<p><img alt="CEH 2" src="../_images/ceh2.png" /></p>
+<p>Opening the program with the executable file, you should see something like this:</p>
+<p><img alt="CEH 1-1" src="../_images/ceh1-1.png" /></p>
+<p>Or perhaps something like this (an older version):</p>
+<p><img alt="CEH 3" src="../_images/ceh3.png" /></p>
+<p>Depending on the release version, the buttons/settings may be a bit different, but at its core they should all be capable of helping the export process.</p>
+<section id="buttons">
+<h4>Buttons<a class="headerlink" href="#buttons" title="Permalink to this heading">#</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">Browse</span> <span class="pre">Files</span></code> button will open the Windows File Explorer to allow you to select the ZIP file that exported from CVAT (see above for how to export from CVAT). The currently selected file’s path will be displayed in the center of the application (see picture).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Helper</span></code> button will take the selected ZIP file and refactor its file structure to match the file structure as described above. This will also ZIP up the refactored folder, replacing the old ZIP file. In later versions of the application, this button will open a pop-up menu to configure the settings before running. These settings allow you to assign a certain percentage of the data to either train/valid/test folders. It is also possible to seed the random assignment of the images. And then lastly, depending on the kind of model you are training, you will want to select which class you are using (this is important for the data.yaml file). If a set of classes is not present on this screen, you must add them with the <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">Classes</span></code> button (see below).</p>
+<p><img alt="CEH 1-3" src="../_images/ceh1-3.png" /></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SCP</span> <span class="pre">to</span> <span class="pre">Lambda</span></code> button will take the selected ZIP file and SCP the file to Lambda. SCP is a way of transferring a file to/from a local and remote destination. It should also be noted, that in order to SCP any files onto Lambda, you must fill out the <code class="docutils literal notranslate"><span class="pre">Path</span> <span class="pre">on</span> <span class="pre">Lambda</span></code>, <code class="docutils literal notranslate"><span class="pre">Username</span> <span class="pre">on</span> <span class="pre">Lambda</span></code>, and <code class="docutils literal notranslate"><span class="pre">Password</span> <span class="pre">on</span> <span class="pre">Lambda</span></code> sections in the settings. Another thing to note is that part of the function of the <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Helper</span></code> button, as previously mentioned, is to ZIP up the new folder with the correct format and replace the old ZIP file. This means that the path of the file you originally selected will still be correct, allowing you to SCP the file without having to re-select it.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">Classes</span></code> button will open a pop-up menu for the new class name e.g. (berry, bush, scorch, etc.) and class labels (blue,green). This will save to a JSON and will be loaded into the program on subsequent runs. There is also the option to remove an existing class in the JSON. Clicking on the <code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">TO</span> <span class="pre">REMOVE</span></code> box opens up to a dropdown menu.</p>
+<p><img alt="CEH 1-2" src="../_images/ceh1-2.png" /></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">&amp;</span> <span class="pre">Close</span></code> button will save the current settings (values are saved to a JSON file) for subsequent runs of the program and then close out of the application.</p>
+</section>
+<section id="settings">
+<h4>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">#</a></h4>
+<p>As mentioned previously, the settings may differ from version to version of this application.</p>
+<p>In older versions of the application, the settings pane has various settings that are required to run the program correctly. These allow you to specify a type of folder (train/valid/test) to create to hold the data you’re refactoring/exporting, select the type of class you are using, and specify the details for SCP-ing to Lambda.</p>
+<p>In newer versions of the application, the settings pane only has options to change the color scheme of the application.</p>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>You now know how to:</p>
+<ul>
+<li>Export a dataset from CVAT
+<li>Best re-structure the format of our datasets
+<li>Use the CEH to make exporting easier
+</ul>
+<hr class="docutils" />
+<p>With this information, let’s continue on to <a class="reference internal" href="../yolo/training.html"><span class="doc std std-doc">Training</span></a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./cvat"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="annotating.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Annotating</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../yolo/venv.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Virtual Environments in Python Projects</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-on-cvat">Exporting on CVAT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-file-structure-modeled-after-roboflow-export">Dataset File Structure (Modeled after Roboflow Export)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recreating-this-file-structure-with-cvat">Recreating this File Structure with CVAT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cvat-export-helper">The CVAT Export Helper</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#buttons">Buttons</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#settings">Settings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon McHenry
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -35,12 +35,13 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -65,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting Started with Roboflow" href="getting-started.html" />
+    <link rel="next" title="Getting Started with Roboflow" href="roboflow/getting-started.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -75,7 +76,7 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -118,12 +119,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -138,9 +147,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="#">
+  
   
   
   
@@ -150,8 +161,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Rowan Blueberry Project - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Rowan Blueberry Project - Home"/>`);</script>
   
   
 </a></div>
@@ -165,15 +176,37 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started with Roboflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="annotating.html">Annotating</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exporting.html">Exporting an Annotated Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="environmentsetup.html">Environment Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="yolov5.html">YOLOv5</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deepsort.html">DeepSORT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demosite.html">Demo Website</a></li>
-<li class="toctree-l1"><a class="reference internal" href="software.html">Software for the project</a></li>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using Roboflow</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="roboflow/getting-started.html">Getting Started with Roboflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roboflow/annotating.html">Annotating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roboflow/exporting.html">Exporting an Annotated Dataset</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using CVAT</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cvat/getting-started.html">Getting Started with CVAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cvat/annotating.html">Annotating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cvat/exporting.html">Exporting an Annotated Dataset (to Lambda)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">YOLOv5</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="yolo/venv.html">Virtual Environments in Python Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/validating.html">Validating a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scripts/Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scripts/scripts.html">Custom-Made Scripts for this Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts/software.html">Software for the project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="misc/blueberry.html">What Blueberries Look Like</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/demosite.html">Demo Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/docsite.html">How to Work on the Documentation Website (This Site!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/terms.html">Important Terms &amp; Definitions</a></li>
 </ul>
 
     </div>
@@ -327,6 +360,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -336,6 +370,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -367,22 +402,52 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="welcome-to-the-rowan-blueberry-docs">
 <h1>Welcome to the Rowan Blueberry Docs<a class="headerlink" href="#welcome-to-the-rowan-blueberry-docs" title="Permalink to this heading">#</a></h1>
 <p>This is the Blueberry Documents that were created for the Rowan Math Department’s Blueberry Project. This version has been combined with Chau’s documents, and Brandon’s documents. (6/28/2023)</p>
 <p>See table of contents below for quick access to documentation.</p>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using Roboflow</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started with Roboflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="annotating.html">Annotating</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exporting.html">Exporting an Annotated Dataset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="environmentsetup.html">Environment Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="yolov5.html">YOLOv5</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deepsort.html">DeepSORT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="demosite.html">Demo Website</a></li>
-<li class="toctree-l1"><a class="reference internal" href="software.html">Software for the project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roboflow/getting-started.html">Getting Started with Roboflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roboflow/annotating.html">Annotating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roboflow/exporting.html">Exporting an Annotated Dataset</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using CVAT</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cvat/getting-started.html">Getting Started with CVAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cvat/annotating.html">Annotating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cvat/exporting.html">Exporting an Annotated Dataset (to Lambda)</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">YOLOv5</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="yolo/venv.html">Virtual Environments in Python Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/validating.html">Validating a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yolo/cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scripts/Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scripts/scripts.html">Custom-Made Scripts for this Project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts/software.html">Software for the project</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Misc</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="misc/blueberry.html">What Blueberries Look Like</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/demosite.html">Demo Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/docsite.html">How to Work on the Documentation Website (This Site!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc/terms.html">Important Terms &amp; Definitions</a></li>
 </ul>
 </div>
 </section>
@@ -415,10 +480,10 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="right-next"
-       href="getting-started.html"
+       href="roboflow/getting-started.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
@@ -432,6 +497,8 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>
@@ -449,6 +516,7 @@ By Brandon McHenry
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -475,8 +543,8 @@ By Brandon McHenry
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>
