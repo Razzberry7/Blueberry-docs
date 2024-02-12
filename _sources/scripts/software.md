@@ -8,8 +8,10 @@ PLEASE DOWNLOAD THE MOST RECENT VERSION
 
 ## CVAT EXPORT HELPER
 
+### Version 1.1x 
+- [Release v1.1](../../dist/CVAT-Export-Helper-v1.1.zip) Overhauled GUI; implemented config file for easier use; includes options to split data; improved data.yaml generation.
 
-### Version 1.x 
+### Version 1.0x 
 (Most Recent to Oldest)
 - [Release v1.02](../../dist/CVAT-Export-Helper-v1.02.zip) BUG FIX: Image files with .JPG extensions are now supported.
 - [Release v1.01](../../dist/CVAT-Export-Helper-v1.01.zip) BUG FIX: Finished zipped files no longer contains the parent/root folder. 
