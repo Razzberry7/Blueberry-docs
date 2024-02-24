@@ -35,7 +35,7 @@ In this example, I did the blue blueberries second, as CVAT auto selects the las
 After completing the annotations in your view, I highly recommend you slide up/down until you encounter additional berries.
 
 <video width="" height="" 
-       src="../_static/videos/Sliding_up.mp4"  
+       src="../_static/videos/Sliding_Up.mp4"  
        controls>
 </video>
 
