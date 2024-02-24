@@ -28,14 +28,14 @@ So, Draw box, press <b>N</b>, draw box, press <b>N</b>, and so on..
 In this example, I did the blue blueberries second, as CVAT auto selects the last label when annotating. <b>Doing all of one class at a time and then all of the other will save time.</b> You will feel this out over time.
 
 <video width="" height="" 
-       src="../../videos/Blue_Annotating.mp4"  
+       src="../_static/videos/Blue_Annotating.mp4"  
        controls>
 </video>
 
 After completing the annotations in your view, I highly recommend you slide up/down until you encounter additional berries.
 
 <video width="" height="" 
-       src="../../videos/Sliding_up.mp4"  
+       src="../_static/videos/Sliding_up.mp4"  
        controls>
 </video>
 
@@ -48,7 +48,7 @@ Be sure to fit the annotation bounding boxes as tightly as you can around the be
 Over hundreds and thousands of berries, you may get sloppy, thankfully, we can adjust existing annotations.
 
 <video width="" height="" 
-       src="../../videos/Fixing_Annotations.mp4"  
+       src="../_static/videos/Fixing_Annotations.mp4"  
        controls>
 </video>
 

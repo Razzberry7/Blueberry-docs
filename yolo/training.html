@@ -380,7 +380,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -396,6 +398,19 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-train-py-script">Understanding the train.py script</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notable-parameters">Notable parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-train-py">Using train.py</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -407,7 +422,40 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="training-a-yolov5-model">
 <h1>Training a YOLOv5 Model<a class="headerlink" href="#training-a-yolov5-model" title="Permalink to this heading">#</a></h1>
-<p>IN-PROGRESS</p>
+<section id="understanding-the-train-py-script">
+<h2>Understanding the <a class="reference external" href="http://train.py">train.py</a> script<a class="headerlink" href="#understanding-the-train-py-script" title="Permalink to this heading">#</a></h2>
+<p>The Yolov5 repo comes equipped with scripts that we can use to train, validate, or test our models.</p>
+<p>For now, we’ll focus on <a class="reference external" href="http://train.py">train.py</a>.</p>
+<p>I recommend opening up the scripts (and that goes for scripts made by the team as well) and seeing how to use it, and what the code is doing.</p>
+<p>To get an idea of how to use <a class="reference external" href="http://train.py">train.py</a>, let’s see what can figure out by opening it in nano: <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">train.py</span></code></p>
+<p><img alt="Training 1" src="../_images/training1.png" /></p>
+<p>At the top we should see some examples of how we can use this script. (It’s good practice to include these at the top of your scripts as well.)</p>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h3>
+<p>According to their Usage comment, the following command would train on a single GPU: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">train.py</span> <span class="pre">--data</span> <span class="pre">--coco128.yaml</span> <span class="pre">--weights</span> <span class="pre">yolov5s.pt</span> <span class="pre">--img</span> <span class="pre">640</span></code></p>
+<p>This example seems pretty simple, but only if you use a couple of parameters, there are many settings/parameters that we can pass in, so let’s get an idea of what those look like.</p>
+<p>Scrolling down in this script, we can find a parse_opt function and get an idea of all the different parameters we can use (and their defaults).</p>
+<p><img alt="Training 2" src="../_images/training2.png" /></p>
+</section>
+<section id="notable-parameters">
+<h3>Notable parameters:<a class="headerlink" href="#notable-parameters" title="Permalink to this heading">#</a></h3>
+<ul>
+<li>weights - The size of model you want to create.
+<li>data - The path to the data.yaml of the dataset you are using.
+<li>hyp - The hyperparameter file you want to use.
+<li>epochs - The number of epochs for training.
+<li>batch-size - The batch size for the GPU (higher number quickens training time at the cost of the GPU working harder)
+<li>imgsz - The dimension of the images in training (assumes it is square).
+<li>device - The GPU to assign this training job to.
+<li>name - The name of the training job.
+</ul>
+<p>If you want to read more about the parameters, there’s a bit more information here: <a class="github reference external" href="https://github.com/ultralytics/yolov5/issues/6507">ultralytics/yolov5#6507</a></p>
+</section>
+</section>
+<section id="using-train-py">
+<h2>Using <a class="reference external" href="http://train.py">train.py</a><a class="headerlink" href="#using-train-py" title="Permalink to this heading">#</a></h2>
+<p>IN PROGRESS</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -465,7 +513,25 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-train-py-script">Understanding the train.py script</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notable-parameters">Notable parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-train-py">Using train.py</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
