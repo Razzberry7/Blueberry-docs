@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Annotating &#8212; Rowan Blueberry Project</title>
+    <title>Making Predictions with YOLOv5 &#8212; Rowan Blueberry Project</title>
   
   
   
@@ -63,11 +63,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'cvat/annotating';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'yolo/predicting';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Exporting an Annotated Dataset (to Lambda)" href="exporting.html" />
-    <link rel="prev" title="Getting Started with CVAT" href="getting-started.html" />
+    <link rel="next" title="Validating a YOLOv5 Model" href="validating.html" />
+    <link rel="prev" title="Training a YOLOv5 Model" href="training.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,18 +184,19 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../roboflow/exporting.html">Exporting an Annotated Dataset</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using CVAT</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started with CVAT</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Annotating</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exporting.html">Exporting an Annotated Dataset (to Lambda)</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cvat/getting-started.html">Getting Started with CVAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cvat/annotating.html">Annotating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cvat/exporting.html">Exporting an Annotated Dataset (to Lambda)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">YOLOv5</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../yolo/venv.html">Virtual Environments in Python Projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../yolo/lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../yolo/training.html">Training a YOLOv5 Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../yolo/validating.html">Validating a YOLOv5 Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../yolo/cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="venv.html">Virtual Environments in Python Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Making Predictions with YOLOv5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validating.html">Validating a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Scripts/Tools</span></p>
 <ul class="nav bd-sidenav">
@@ -279,7 +280,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcvat/annotating.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fyolo/predicting.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -309,7 +310,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/cvat/annotating.md" target="_blank"
+      <li><a href="../_sources/yolo/predicting.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -380,9 +381,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -393,23 +392,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Annotating</h1>
+    <h1>Making Predictions with YOLOv5</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-annotating-on-cvat">Getting Started - Annotating on CVAT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotating-usual-case">Annotating - Usual Case</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cvat-annotating-medium-case">CVAT - Annotating - Medium Case</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cvat-annotating-hard-case">CVAT - Annotating - Hard Case</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -419,74 +406,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="annotating">
-<h1>Annotating<a class="headerlink" href="#annotating" title="Permalink to this heading">#</a></h1>
-<p>In this section, we will discuss not only how to annotate on CVAT, but how WE (previous students) annotate our datasets.</p>
-<section id="getting-started-annotating-on-cvat">
-<h2>Getting Started - Annotating on CVAT<a class="headerlink" href="#getting-started-annotating-on-cvat" title="Permalink to this heading">#</a></h2>
-<p>This is what it looks like to open up a job.</p>
-<p><img alt="Annotating Step 1" src="../_images/cvat-annotating1.png" /></p>
-<p>This job already has some progress, so there are multiple objects already listed in the object list on the right side of the screen.</p>
-<p>To begin annotating, we can click the “Draw new rectangle” tool, or press N for the shortcut key.</p>
-<p>In the box that opens, we can choose the type of label we want to create (green/blue). Keep other settings the same.</p>
-<p><img alt="Annotating Step 2" src="../_images/cvat-annotating2.png" /></p>
-</section>
-<section id="annotating-usual-case">
-<h2>Annotating - Usual Case<a class="headerlink" href="#annotating-usual-case" title="Permalink to this heading">#</a></h2>
-<p>As mentioned earlier, <b>N</b> is the annotating keyboard shortcut. I recommend that you dedicate your non-dominant hand to pressing <b>N</b> after each annotation.</p>
-<p>So, Draw box, press <b>N</b>, draw box, press <b>N</b>, and so on..</p>
-<p>In this example, I did the blue blueberries second, as CVAT auto selects the last label when annotating. <b>Doing all of one class at a time and then all of the other will save time.</b> You will feel this out over time.</p>
-<p><video width="500" height="400" 
-       src="../_static/videos/Blue_Annotating.mp4"  
-       controls>
-</video></p>
-<p>After completing the annotations in your view, I highly recommend you slide up/down until you encounter additional berries.</p>
-<p><video width="500" height="400" 
-       src="../_static/videos/Sliding_Up.mp4"  
-       controls>
-</video></p>
-<p>I annotate in this snake-like pattern to ensure that I cover the entire image without missing any berries.</p>
-<p><img alt="Annotating Procedure" src="../_images/Annotation-Procedure.png" /></p>
-<p>Be sure to fit the annotation bounding boxes as tightly as you can around the berry.</p>
-<p>Over hundreds and thousands of berries, you may get sloppy, thankfully, we can adjust existing annotations.</p>
-<p><video width="500" height="400" 
-       src="../_static/videos/Fixing_Annotations.mp4"  
-       controls>
-</video></p>
-<p>It’s important to be as accurate as we can, but I wouldn’t suggest hyper fixating on tiny fixes, only larger fixes.</p>
-</section>
-<section id="cvat-annotating-medium-case">
-<h2>CVAT - Annotating - Medium Case<a class="headerlink" href="#cvat-annotating-medium-case" title="Permalink to this heading">#</a></h2>
-<p>This example is more difficult due to occlusion, shadows, berries that look like leaves, etc.</p>
-<p><img alt="Annotating Step 3" src="../_images/cvat-annotating3.png" /></p>
-<p>Let’s see how this harder case example would be annotated…</p>
-<p><img alt="Annotating Step 4" src="../_images/cvat-annotating4.png" /></p>
-<p>This was a bit more challenging to annotate, especially when the bounding boxes begin to stack on top of each other, making it difficult to see where other berries in the cluster are.</p>
-<pre>
-Tip: To hide/show the annotations, press T + H on the keyboard.
-</pre>
-</section>
-<section id="cvat-annotating-hard-case">
-<h2>CVAT - Annotating - Hard Case<a class="headerlink" href="#cvat-annotating-hard-case" title="Permalink to this heading">#</a></h2>
-<p>Often times there are bushes in the background that have visible berries. This can be difficult as some berries can be very visible, which makes it a lot more work to annotate. Or, the berries are hard to see fully, so there is some you can annotate and some you shouldn’t try to annotate.</p>
-<p>Let’s see how the hard case would be annotated…</p>
-<p><img alt="Annotating Step 5" src="../_images/cvat-annotating5.png" /></p>
-<p>This was challenging to annotate, and likely is missing annotations. I tried my best, but there are many blurry green/blue blobs in the center of the image that make it hard to distinguish an individual berry.</p>
-<p><img alt="Annotating Step 6" src="../_images/cvat-annotating6.png" /></p>
-<pre>
-Tip: If you’re not sure if they are berries, alternate between zooming in & out (with your mouse wheel) to change your perspective.
-</pre>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
-<p>You now know how to:</p>
-<ul>
-<li>Annotate on CVAT
-<li>Effectively annotate blueberries
-</ul>
-<hr class="docutils" />
-<p>With this information, let’s continue on to <a class="reference internal" href="exporting.html"><span class="doc std std-doc">Exporting Data on CVAT</span></a>.</p>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="making-predictions-with-yolov5">
+<h1>Making Predictions with YOLOv5<a class="headerlink" href="#making-predictions-with-yolov5" title="Permalink to this heading">#</a></h1>
+<p>IN-PROGRESS</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -502,7 +424,7 @@ Tip: If you’re not sure if they are berries, alternate between zooming in & ou
         },
         kernelOptions: {
             name: "python3",
-            path: "./cvat"
+            path: "./yolo"
         },
         predefinedOutput: true
     }
@@ -520,20 +442,20 @@ Tip: If you’re not sure if they are berries, alternate between zooming in & ou
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="getting-started.html"
+       href="training.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Getting Started with CVAT</p>
+        <p class="prev-next-title">Training a YOLOv5 Model</p>
       </div>
     </a>
     <a class="right-next"
-       href="exporting.html"
+       href="validating.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Exporting an Annotated Dataset (to Lambda)</p>
+        <p class="prev-next-title">Validating a YOLOv5 Model</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -544,24 +466,7 @@ Tip: If you’re not sure if they are berries, alternate between zooming in & ou
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-annotating-on-cvat">Getting Started - Annotating on CVAT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotating-usual-case">Annotating - Usual Case</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cvat-annotating-medium-case">CVAT - Annotating - Medium Case</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cvat-annotating-hard-case">CVAT - Annotating - Hard Case</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>

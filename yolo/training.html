@@ -403,12 +403,28 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-dataset">Preparing Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-images-to-validation-dataset">Assigning Images to Validation Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmentations">Augmentations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-train-py-script">Understanding the train.py script</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notable-parameters">Notable parameters:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-train-py">Using train.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-train-py">Using train.py</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-errors">Potential Errors</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filenotfound">FileNotFound</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#some-python-package-not-installed">Some Python Package Not Installed</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#something-about-cuda-memory">Something About CUDA Memory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-the-results">Seeing the Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Using Train.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
             </nav>
         </div>
@@ -422,12 +438,35 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="training-a-yolov5-model">
 <h1>Training a YOLOv5 Model<a class="headerlink" href="#training-a-yolov5-model" title="Permalink to this heading">#</a></h1>
+<p>After you successfully export some dataset to Lambda (see <a class="reference internal" href="../cvat/exporting.html"><span class="doc std std-doc">Exporting Data on CVAT</span></a>), you will want to train with that dataset. In order to train, we will have to ensure our data is ready for training.</p>
+<section id="preparing-dataset">
+<h2>Preparing Dataset<a class="headerlink" href="#preparing-dataset" title="Permalink to this heading">#</a></h2>
+<p>Every training session needs training data (obviously), but it also needs validation data to generate metrics during training. You <b>CANNOT</b> train without validation data.</p>
+<p>We will also want to make sure we perform any augmentations to our dataset before using it to train.</p>
+<section id="assigning-images-to-validation-dataset">
+<h3>Assigning Images to Validation Dataset<a class="headerlink" href="#assigning-images-to-validation-dataset" title="Permalink to this heading">#</a></h3>
+<p>You may use a platform to export your data split up into train/valid/test folders. If you are using CVAT, you will have to do this yourself. Fortunately, we have a script for it.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">dataset_assigner.py</span></code> script, you can assign a certain percentage of your data in train/valid/test (for more details, see <a class="reference internal" href="../scripts/scripts.html"><span class="doc std std-doc">Our Scripts</span></a>)</p>
+<pre>
+<b>NOTE:</b> 
+
+If you intend to split this data into tiles, or any other kind of augmentation that will increase the number of images/labels in your dataset, you will want to perform this step <b>LAST</b>. 
+
+<b>Imagine:</b> You have 10 full-sized images, assign 2 to valid, and then split all of the data into tiles, generating 25 tiles each image. Your dataset is much larger now, but the validation dataset is limited to data from those 2 photos you originally assigned, rather than assigning 50 tiles from a tiled dataset of 250 images.
+</pre>
+</section>
+<section id="augmentations">
+<h3>Augmentations<a class="headerlink" href="#augmentations" title="Permalink to this heading">#</a></h3>
+<p>YOLOv5 performs various augmentations, which you can read about here: <a class="reference external" href="https://github.com/ultralytics/yolov5/discussions/10469">Forum Post about YOLOv5 Augmentation Pipeline</a>.</p>
+<p>We may perform augmentations of our own from time to time. One such augmentation may be to simply cut our images up into square tiles of 640x640 or some other dimension. We have a script for this, called the <code class="docutils literal notranslate"><span class="pre">FullBushDivider.py</span></code> (for more details, see <a class="reference internal" href="../scripts/scripts.html"><span class="doc std std-doc">Our Scripts</span></a>).</p>
+</section>
+</section>
 <section id="understanding-the-train-py-script">
 <h2>Understanding the <a class="reference external" href="http://train.py">train.py</a> script<a class="headerlink" href="#understanding-the-train-py-script" title="Permalink to this heading">#</a></h2>
-<p>The Yolov5 repo comes equipped with scripts that we can use to train, validate, or test our models.</p>
+<p>The YOLOv5 repo comes equipped with scripts that we can use to train, validate, or test our models.</p>
 <p>For now, we’ll focus on <a class="reference external" href="http://train.py">train.py</a>.</p>
 <p>I recommend opening up the scripts (and that goes for scripts made by the team as well) and seeing how to use it, and what the code is doing.</p>
-<p>To get an idea of how to use <a class="reference external" href="http://train.py">train.py</a>, let’s see what can figure out by opening it in nano: <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">train.py</span></code></p>
+<p>To get an idea of how to use <a class="reference external" href="http://train.py">train.py</a>, let’s see what can figure out by opening it in a text editor, anything works but I’ll use nano: <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">train.py</span></code></p>
 <p><img alt="Training 1" src="../_images/training1.png" /></p>
 <p>At the top we should see some examples of how we can use this script. (It’s good practice to include these at the top of your scripts as well.)</p>
 <section id="usage">
@@ -454,7 +493,56 @@ document.write(`
 </section>
 <section id="using-train-py">
 <h2>Using <a class="reference external" href="http://train.py">train.py</a><a class="headerlink" href="#using-train-py" title="Permalink to this heading">#</a></h2>
-<p>IN PROGRESS</p>
+<p>There are many parameters that we can play around with in training, (and other Hyperparameters but that’s a topic for another section).</p>
+<p>For our use case, we really only need to do general training without making many adjustments to how we train. Following their usage example (mentioned previously) we can train by using the <a class="reference external" href="http://train.py">train.py</a> script like so:</p>
+<p>(With a virtual environment active) <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">train.py</span> <span class="pre">--data</span> <span class="pre">./data/training_data/Some_Dataset/data.yaml</span> <span class="pre">--epochs</span> <span class="pre">300</span> <span class="pre">--batch-size</span> <span class="pre">32</span> <span class="pre">--name</span> <span class="pre">Some_Dataset</span></code></p>
+<p>If everything went well, you should see a bunch of details about the training start to be logged to the terminal like so:</p>
+<p><video width="500" height="400" 
+       src="../_static/videos/Yolo_Training_Example_4x.mp4"  
+       controls>
+</video></p>
+<section id="potential-errors">
+<h3>Potential Errors<a class="headerlink" href="#potential-errors" title="Permalink to this heading">#</a></h3>
+<p>You might encounter a whole host of different errors when trying to train. This section can’t be all encompassing, but here are some errors that MIGHT happen, and how you can fix them.</p>
+<section id="filenotfound">
+<h4>FileNotFound<a class="headerlink" href="#filenotfound" title="Permalink to this heading">#</a></h4>
+<p>If the path you pass in (after <code class="docutils literal notranslate"><span class="pre">--data</span></code>) is spelled wrong in any way (case sensitive!), OR if any path names in the data.yaml are not accurate to where the datasets are, then you might see this.</p>
+</section>
+<section id="some-python-package-not-installed">
+<h4>Some Python Package Not Installed<a class="headerlink" href="#some-python-package-not-installed" title="Permalink to this heading">#</a></h4>
+<p>If it tells you that you are missing some package, you will get yelled at for not having a specific package. This would likely happen if you 1. haven’t activated your python environment, or 2. forgot to install all packages in a requirements.txt file.</p>
+</section>
+<section id="something-about-cuda-memory">
+<h4>Something About CUDA Memory<a class="headerlink" href="#something-about-cuda-memory" title="Permalink to this heading">#</a></h4>
+<p>If it tells you that you can’t train because there isn’t enough CUDA memory left, then there are probably many jobs running on the GPUs. You can check the utilization of the GPUs by using the command <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code>.</p>
+<p><img alt="NVIDIA-SMI" src="../_images/nvidia-smi.png" /></p>
+<p>You should see all 8 GPUs and a bunch of details about how much memory they’re allocating to any running processes. Using this knowledge, If you can’t train because of the GPUs running something else, then use a different GPU!</p>
+<p>By adding <code class="docutils literal notranslate"><span class="pre">--device</span> <span class="pre">#</span></code> (where # is the number of the GPU 0-7), you can assign your training job to that specific GPU.</p>
+</section>
+</section>
+</section>
+<section id="seeing-the-results">
+<h2>Seeing the Results<a class="headerlink" href="#seeing-the-results" title="Permalink to this heading">#</a></h2>
+<p>After successfully training, navigate to the finished run by going to this path:
+<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/data/drone/YOUR_NAME/yolov5/runs/train/TRAINING_NAME/</span></code></p>
+<p>In this directory, there are results for the training, including plots, a csv file of the metrics each epoch, and some other things. There is a directory called <code class="docutils literal notranslate"><span class="pre">weights</span></code> and in this directory there should be a <code class="docutils literal notranslate"><span class="pre">best.pt</span></code> weight file, which is the file we use to apply our training weights to the YOLO model.</p>
+<p>(Some of us tend to refer to this file <i>as</i> the model, but it is simply the weights we <i>use</i> on the model).</p>
+<p><img alt="Training3" src="../_images/training3.png" /></p>
+<p>Later, when you need to make predictions, you’ll use this <code class="docutils literal notranslate"><span class="pre">best.pt</span></code> weight file and apply it to the YOLOv5 model. See <a class="reference internal" href="predicting.html"><span class="doc std std-doc">Making Predictions with YOLOv5</span></a> for the next steps.</p>
+</section>
+<section id="id1">
+<h2>Using <a class="reference external" href="http://Train.py">Train.py</a><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>We have our own script <code class="docutils literal notranslate"><span class="pre">Train.py</span></code> that makes it a bit easier to use the <code class="docutils literal notranslate"><span class="pre">train.py</span></code> script. See <a class="reference internal" href="../scripts/scripts.html"><span class="doc std std-doc">Our Scripts</span></a> for more information.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>You now know how to:</p>
+<ul>
+<li>Prepare a dataset for training
+<li>Training a YOLOv5 model
+</ul>
+<hr class="docutils" />
+<p>With this information, you can either continue on to <a class="reference internal" href="predicting.html"><span class="doc std std-doc">Making Predictions with YOLOv5</span></a> or <a class="reference internal" href="validating.html"><span class="doc std std-doc">Validating a YOLOv5 Model</span></a> (depending on what you’re doing).</p>
 </section>
 </section>
 
@@ -522,12 +610,28 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-dataset">Preparing Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-images-to-validation-dataset">Assigning Images to Validation Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmentations">Augmentations</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-train-py-script">Understanding the train.py script</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notable-parameters">Notable parameters:</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-train-py">Using train.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-train-py">Using train.py</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#potential-errors">Potential Errors</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filenotfound">FileNotFound</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#some-python-package-not-installed">Some Python Package Not Installed</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#something-about-cuda-memory">Something About CUDA Memory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-the-results">Seeing the Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Using Train.py</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
 </ul>
   </nav></div>
 
