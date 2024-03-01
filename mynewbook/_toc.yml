@@ -3,12 +3,33 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: getting-started
-- file: annotating
-- file: exporting
-- file: environmentsetup
-- file: yolov5 
-- file: deepsort
-- file: demosite 
-- file: software
+parts:
+  - caption: Using Roboflow
+    chapters:
+    - file: roboflow/getting-started
+    - file: roboflow/annotating
+    - file: roboflow/exporting
+  - caption: Using CVAT
+    chapters:
+    - file: cvat/getting-started
+    - file: cvat/annotating
+    - file: cvat/exporting
+  - caption: YOLOv5
+    chapters:
+    - file: yolo/venv
+    - file: yolo/lambda-linux
+    - file: yolo/training
+    - file: yolo/predicting
+    - file: yolo/validating
+    - file: yolo/cross-validation
+  - caption: Scripts/Tools
+    chapters: 
+    - file: scripts/scripts
+    - file: scripts/software
+  - caption: Misc
+    chapters: 
+    - file: misc/blueberry
+    - file: misc/demosite 
+    - file: misc/docsite
+    - file: misc/terms
+
