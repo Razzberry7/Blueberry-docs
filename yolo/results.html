@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Making Predictions with YOLOv5 &#8212; Rowan Blueberry Project</title>
+    <title>Visualizing &amp; Analyzing Model Training Metrics &#8212; Rowan Blueberry Project</title>
   
   
   
@@ -63,11 +63,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'yolo/predicting';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'yolo/results';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Visualizing &amp; Analyzing Model Training Metrics" href="results.html" />
-    <link rel="prev" title="Training a YOLOv5 Model" href="training.html" />
+    <link rel="next" title="Validating a YOLOv5 Model" href="validating.html" />
+    <link rel="prev" title="Making Predictions with YOLOv5" href="predicting.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -194,8 +194,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="venv.html">Virtual Environments in Python Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training.html">Training a YOLOv5 Model</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Making Predictions with YOLOv5</a></li>
-<li class="toctree-l1"><a class="reference internal" href="results.html">Visualizing &amp; Analyzing Model Training Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="predicting.html">Making Predictions with YOLOv5</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Visualizing &amp; Analyzing Model Training Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validating.html">Validating a YOLOv5 Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
 </ul>
@@ -281,7 +281,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fyolo/predicting.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fyolo/results.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -311,7 +311,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/yolo/predicting.md" target="_blank"
+      <li><a href="../_sources/yolo/results.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -382,9 +382,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -395,32 +393,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Making Predictions with YOLOv5</h1>
+    <h1>Visualizing & Analyzing Model Training Metrics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-from-training">Weights from Training</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-images">New Images</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-yolo-predictor-py">Using <code class="docutils literal notranslate"><span class="pre">YOLO_Predictor.py</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-the-results">Seeing the Results</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-from-lambda">Exporting from Lambda</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scp-command">SCP Command</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -430,66 +407,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="making-predictions-with-yolov5">
-<h1>Making Predictions with YOLOv5<a class="headerlink" href="#making-predictions-with-yolov5" title="Permalink to this heading">#</a></h1>
-<section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h2>
-<section id="weights-from-training">
-<h3>Weights from Training<a class="headerlink" href="#weights-from-training" title="Permalink to this heading">#</a></h3>
-<p>To make predictions with YOLOv5 you will first need weights to apply to the model. You obtain these weights by training a model. See <a class="reference internal" href="training.html"><span class="doc std std-doc">Training a YOLOv5 Model</span></a> if you haven’t done this step.</p>
-</section>
-<section id="new-images">
-<h3>New Images<a class="headerlink" href="#new-images" title="Permalink to this heading">#</a></h3>
-<p>Unsurprisingly, we need new images to actually make predictions on. You <b>SHOULD NOT</b> make predictions on images used in the training dataset, as there is an obvious conflict of interest that will likely mean your resulting predictions aren’t accurate.</p>
-</section>
-</section>
-<section id="using-yolo-predictor-py">
-<h2>Using <code class="docutils literal notranslate"><span class="pre">YOLO_Predictor.py</span></code><a class="headerlink" href="#using-yolo-predictor-py" title="Permalink to this heading">#</a></h2>
-<p>By applying these weights to the YOLOv5 model, we can feed in our new picture for the model to make predictions on. Fortunately, we have a script that can do all this for us.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">YOLO_Predictor.py</span></code>, found in the <code class="docutils literal notranslate"><span class="pre">Yolov5_Scripts</span></code> repository will allow us to make predictions easily.</p>
-<p>With your python environment active, you can run the script like so: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">YOLO_Predictor.py</span></code>.</p>
-<p>It will prompt you to change the settings for predictions. If you don’t, it will use defaults (See below).</p>
-<p><img alt="Step2" src="../_images/step21.png" /></p>
-<p>If you choose to change the settings, it will ask:</p>
-<ul>
-<li>what <b>confidence threshold</b> you want to set
-<li>what <b>IOU threshold</b> you want to set
-<li>if you want the model to be<b>agnostic</b>
-<li>if you want the model to be <b>multi label</b>
-<li>if you want to hide labels
-<li>and if you want to hide confidence scores for each label
-</ul>
-<p>It will then ask the path to the images you’re making predictions on, where you’d like to send the results, the name to give this prediction, and the size of the tiles you’re making predictions on.</p>
-<p>(Behind the scenes, this predictor cuts the image into tiles, makes predictions on those tiles, and then stitches them back together into one whole image.)</p>
-<p><img alt="Step1" src="../_images/step11.png" /></p>
-</section>
-<section id="seeing-the-results">
-<h2>Seeing the Results<a class="headerlink" href="#seeing-the-results" title="Permalink to this heading">#</a></h2>
-<p>According to where you send the results to be saved, there will be an image with the predictions drawn on it. You will more than likely want to see this image, so let’s take it off of Lambda.</p>
-<section id="exporting-from-lambda">
-<h3>Exporting from Lambda<a class="headerlink" href="#exporting-from-lambda" title="Permalink to this heading">#</a></h3>
-<p>You can export a file from Lambda using the <code class="docutils literal notranslate"><span class="pre">scp</span></code> command. Alternatively, if you are using MobaXterm, you will likely be able to quickly copy it from your terminal file system.</p>
-<section id="scp-command">
-<h4>SCP Command<a class="headerlink" href="#scp-command" title="Permalink to this heading">#</a></h4>
-<p>Since I’m a masochist, I’ll be using the <code class="docutils literal notranslate"><span class="pre">scp</span></code> command to copy the files to my local machine.</p>
-<p>You will need a new terminal window (not logged into Lambda).</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">scp</span></code> command takes two parameters: the location of the file from one area, and the location to copy it to.</p>
-<p>Since the file is on Lambda, you will need to add information about the server: <code class="docutils literal notranslate"><span class="pre">YOUR_NAME&#64;lambda04.rowan.edu:/path/to/the/file.png</span></code>.</p>
-<p><img alt="Step3" src="../_images/step3.png" /></p>
-<p>It will ask for your login so that it can fetch the file from the server, and if your paths are all correct you will see the information on the right-hand side change as it copies the file over.</p>
-<p>When you copy the file over, head to the destination you set, and open the image. It should look something like this:</p>
-<p><img alt="Step4" src="../_images/step4.jpg" /></p>
-</section>
-</section>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
-<p>You now know how to:</p>
-<ul>
-<li>Make predictions using a YOLOv5 model
-<li>Use the SCP command to move files between a local machine and server
-</ul>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="visualizing-analyzing-model-training-metrics">
+<h1>Visualizing &amp; Analyzing Model Training Metrics<a class="headerlink" href="#visualizing-analyzing-model-training-metrics" title="Permalink to this heading">#</a></h1>
+<p>In Progress</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -523,20 +443,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="training.html"
+       href="predicting.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Training a YOLOv5 Model</p>
+        <p class="prev-next-title">Making Predictions with YOLOv5</p>
       </div>
     </a>
     <a class="right-next"
-       href="results.html"
+       href="validating.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Visualizing &amp; Analyzing Model Training Metrics</p>
+        <p class="prev-next-title">Validating a YOLOv5 Model</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -547,33 +467,7 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-from-training">Weights from Training</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-images">New Images</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-yolo-predictor-py">Using <code class="docutils literal notranslate"><span class="pre">YOLO_Predictor.py</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-the-results">Seeing the Results</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-from-lambda">Exporting from Lambda</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#scp-command">SCP Command</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>

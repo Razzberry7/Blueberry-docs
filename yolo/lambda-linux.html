@@ -194,6 +194,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="venv.html">Virtual Environments in Python Projects</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Preparing Lambda &amp; Familiarizing with Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="predicting.html">Making Predictions with YOLOv5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Visualizing &amp; Analyzing Model Training Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validating.html">Validating a YOLOv5 Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
 </ul>
@@ -406,10 +408,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-bashrc-file-to-add-alias-es">1. Editing .bashrc File to Add Alias(es)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-the-yolov5-repository-setup">2. Cloning the Yolov5 Repository &amp; Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">3. Environment Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-repository-for-custom-scripts">4. Cloning Repository for Custom Scripts</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-the-config-ini-values">5. Change the Config.ini Values</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-repository-for-custom-scripts">4. Cloning Repository for Custom Scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-the-config-ini-values">5. Change the Config.ini Values</a></li>
 </ul>
             </nav>
         </div>
@@ -430,32 +430,23 @@ document.write(`
 <ol>
 <li>Open a text editor to edit .bashrc file with <font color='red'>nano .bashrc</font>
 <p><img alt="Bashrc" src="../_images/bashrc.png" /></p>
-<li>Add “<font color='red'>alias drone='cd /data/drone/[YOUR FOLDER]/</font>'
+<li>Add “<font color='red'>alias drone='cd /mnt/data2/drone/[YOUR FOLDER]/</font>'
 <p><img alt="Alias" src="../_images/aliases.png" /></p>
-<li>Save with <font color='red'>CTRL+O</font>, then press <font color='red'>ENTER</font>
-<li>Close editor with <font color='red'>CTRL+X</font>
+<li>Save with <font color='red'>`CTRL+O`</font>, then press <font color='red'>`ENTER`</font>
+<li>Close editor with <font color='red'>`CTRL+X`</font>
 <li>Any changes to a .bashrc file must then be sourced. So run: <font color='red'>source .bashrc</font>
 </ol>
 </section>
 <section id="cloning-the-yolov5-repository-setup">
 <h2>2. Cloning the Yolov5 Repository &amp; Setup<a class="headerlink" href="#cloning-the-yolov5-repository-setup" title="Permalink to this heading">#</a></h2>
-<p>In <b>/data/drone/[YOUR NAME]/</b> use the following command to clone the YOLOv5 repo:</p>
-<p><font color='red'>git clone <a class="github reference external" href="https://github.com/Razzberry7/yolov5.git">Razzberry7/yolov5.git</a></font> (a forked repo of the YOLOv5 repository)</p>
-<p>Then, <b>cd</b> into this directory (<b>/data/drone/[YOUR NAME]/yolov5/</b>)</p>
-<p>For organizational purposes let’s make additional directories:</p>
-<p>At <b>/data/drone/[YOUR NAME]/yolov5/</b>:</p>
-<p><font color='red'>mkdir bin</font> (to hold scripts we create)</p>
-<p>At <b>/data/drone/[YOUR NAME]/yolov5/data/</b>:</p>
-<p><font color='red'>mkdir training_data</font> (to hold data designated for training)</p>
-<p><font color='red'>mkdir validation_data</font> (to hold data designated for validation)</p>
-<p><font color='red'>mkdir predictions</font> (to hold subdirectories)</p>
-<p><font color='red'>mkdir predictions/datasets/</font> (to hold data designated for predictions)</p>
-<p><font color='red'>mkdir predictions/results/</font> (to hold results for predictions)</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">/mnt/data2/drone/[YOUR</span> <span class="pre">NAME]/</span></code> use the following command to clone the YOLOv5 repo:</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Razzberry7/yolov5.git</span></code> (a forked repo of the YOLOv5 repository)</p>
+<p><i>If you need to push changes to the repository for any foreseeable reason, you should clone the repository with SSH rather than HTTPS. (Requires being added as a contributor!)</i></p>
 </section>
 <section id="environment-setup">
 <h2>3. Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this heading">#</a></h2>
 <pre>
-Note: The yolov5 repo contains a requirements.txt by default. Use this file for the virtual environment in the following instructions.
+<b>Note:</b> The yolov5 repo contains a yolov5_requirements.txt. Use this file for the virtual environment in the following instructions.
 </pre>
 <p>To set up a virtual environment for this project, follow the instructions here: <a class="reference internal" href="venv.html"><span class="doc std std-doc">Virtual Environment Setup</span></a>.</p>
 </section>
@@ -463,15 +454,15 @@ Note: The yolov5 repo contains a requirements.txt by default. Use this file for 
 <h2>4. Cloning Repository for Custom Scripts<a class="headerlink" href="#cloning-repository-for-custom-scripts" title="Permalink to this heading">#</a></h2>
 <p>Lastly, we are going to clone a repository of custom scripts I have made that will come in handy.</p>
 <p>My repository is located here: <a class="github reference external" href="https://github.com/Razzberry7/Yolov5_Scripts">Razzberry7/Yolov5_Scripts</a></p>
-<p>Command: <font color='red'>git clone <a class="github reference external" href="https://github.com/Razzberry7/Yolov5_Scripts.git">Razzberry7/Yolov5_Scripts.git</a></font></p>
-<p>You can clone this repo wherever you want, but typically it is in either the <b><code class="docutils literal notranslate"><span class="pre">/data/drone/NAME/yolov5/</span></code></b> directory, or right above it at <b><code class="docutils literal notranslate"><span class="pre">/data/drone/NAME/</span></code></b>.</p>
+<p>Command: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Razzberry7/Yolov5_Scripts.git</span></code></p>
+<p><i>If you need to push changes to the repository for any foreseeable reason, you should clone the repository with SSH rather than HTTPS. (Requires being added as a contributor!)</i></p>
+</section>
 <section id="change-the-config-ini-values">
-<h3>5. Change the Config.ini Values<a class="headerlink" href="#change-the-config-ini-values" title="Permalink to this heading">#</a></h3>
-<p>Before using any scripts, please make sure to edit the config.ini file in the /Yolov5_Scripts/util/ directory!</p>
+<h2>5. Change the Config.ini Values<a class="headerlink" href="#change-the-config-ini-values" title="Permalink to this heading">#</a></h2>
+<p>Before using any scripts, please make sure to edit the config.ini file in the <code class="docutils literal notranslate"><span class="pre">/Yolov5_Scripts/util/</span></code> directory!</p>
 <p>You’ll need to replace my name “mchenr49” with yours. You may also need to edit certain paths if they are different from where you put certain directories.</p>
 <hr class="docutils" />
 <p>For more information on what the scripts do and how to use them, please read the README.txt in the repository, or read the documentation at <a class="reference internal" href="../scripts/scripts.html"><span class="doc std std-doc">Custom Scripts</span></a>.</p>
-</section>
 </section>
 </section>
 
@@ -542,10 +533,8 @@ Note: The yolov5 repo contains a requirements.txt by default. Use this file for 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-bashrc-file-to-add-alias-es">1. Editing .bashrc File to Add Alias(es)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-the-yolov5-repository-setup">2. Cloning the Yolov5 Repository &amp; Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">3. Environment Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-repository-for-custom-scripts">4. Cloning Repository for Custom Scripts</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-the-config-ini-values">5. Change the Config.ini Values</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-repository-for-custom-scripts">4. Cloning Repository for Custom Scripts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-the-config-ini-values">5. Change the Config.ini Values</a></li>
 </ul>
   </nav></div>
 
