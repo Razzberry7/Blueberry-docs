@@ -6,6 +6,12 @@ Students on the team have made numerous scripts and programs to assist the proje
 PLEASE DOWNLOAD THE MOST RECENT VERSION
 </pre>
 
+## ROWAN ANNOTATOR
+
+### Version 1.0x 
+(Most Recent to Oldest)
+- [Release v1](../../dist/rowan_annotator_v1.zip) Initial version, see [How to Use the Rowan Annotator](../scripts/annotator.md) for more information on how to use the program.
+
 ## CVAT EXPORT HELPER
 
 ### Version 1.1x 
