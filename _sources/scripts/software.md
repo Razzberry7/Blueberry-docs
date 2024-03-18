@@ -10,7 +10,7 @@ PLEASE DOWNLOAD THE MOST RECENT VERSION
 
 ### Version 1.0x 
 (Most Recent to Oldest)
-- [Release v1](../../dist/rowan_annotator_v1.01.zip) Updated to have autosave feature.
+- [Release v1.01](../../dist/rowan_annotator_v1.01.zip) Updated to have autosave feature.
 - [Release v1](../../dist/rowan_annotator_v1.zip) Initial version, see [How to Use the Rowan Annotator](../scripts/annotator.md) for more information on how to use the program.
 
 ## CVAT EXPORT HELPER
