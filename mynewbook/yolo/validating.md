@@ -10,7 +10,7 @@ Avoid validating on any data that was used to train the model. If you're unsure 
 
 To get an idea of how to use `val.py`, let’s see what can figure out by opening it in a text editor, anything works but I'll use nano: `nano val.py`
 
-<img src="../../images/yolo/valid/step1.png" alt="step1" style="border: 2px solid gray;">
+![Step1](../../images/yolo/valid/step1.png)
 
 At the top we should see some examples of how we can use this script. (It's good practice to include these at the top of your scripts as well.)
 
@@ -21,7 +21,7 @@ This example seems pretty simple, but only if you use a couple of parameters, th
 
 Scrolling down in this script, we can find a `parse_opt` function and get an idea of all the different parameters we can use (and their defaults).
 
-<img src="../../images/yolo/valid/step2.png" alt="step1" style="border: 2px solid gray;">
+![Step2](../../images/yolo/valid/step2.png)
 
 (Can you tell this photo is newer?)
 
@@ -52,7 +52,7 @@ We’ll specify the path for our data.yaml file in the dataset we're validating 
 
 Command: `python val.py --data ./data/validation_data/DATASET_NAME/data.yaml --weights ./runs/train/DATASET_NAME/weights/best.pt --name DATASET_NAME --img 640 --batch-size 32 --save-txt --save-hybrid --save-conf`
 
-<img src="../../images/yolo/valid/step3.png" alt="step3" style="border: 2px solid gray;">
+![Step3](../../images/yolo/valid/step3.png)
 
 After successfully validating, you will receive a table of metrics that shows your model's performance on this validation set.
 
@@ -66,7 +66,7 @@ All results are saved to the `/yolov5/runs/val/DATASET_NAME/` directory.
 
 In classic <i>Brandon fashion</i>, there exists a script for making using the included `val.py` script a bit easier to use. 
 
-<img src="../../images/yolo/valid/step4.png" alt="step4" style="border: 2px solid gray;">
+![Step4](../../images/yolo/valid/step4.png)
 
 By running the command `python easy_val.py` you will be prompted for input for the parameters we manually typed in when using `val.py`. It accomplishes the same thing, but in a more manageable way.
 

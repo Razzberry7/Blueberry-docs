@@ -1,0 +1,1 @@
+myst_heading_anchors = DEPTH

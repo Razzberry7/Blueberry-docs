@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="How to Perform K-Fold Cross-Validation with YOLOv5" href="cross-validation.html" />
-    <link rel="prev" title="Training a YOLOv5 Model" href="training.html" />
+    <link rel="prev" title="Visualizing &amp; Analyzing Model Training Metrics" href="results.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -194,6 +194,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="venv.html">Virtual Environments in Python Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="predicting.html">Making Predictions with YOLOv5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Visualizing &amp; Analyzing Model Training Metrics</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Validating a YOLOv5 Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
 </ul>
@@ -380,7 +382,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -396,6 +400,23 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-val-py-script">Understanding the <code class="docutils literal notranslate"><span class="pre">val.py</span></code> Script</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notable-parameters">Notable parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-validation-dataset">Preparing a Validation Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-val-py">Using <code class="docutils literal notranslate"><span class="pre">val.py</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-the-results">Seeing the Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-easy-val-py">Using <code class="docutils literal notranslate"><span class="pre">easy_val.py</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -407,7 +428,70 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="validating-a-yolov5-model">
 <h1>Validating a YOLOv5 Model<a class="headerlink" href="#validating-a-yolov5-model" title="Permalink to this heading">#</a></h1>
-<p>IN-PROGRESS</p>
+<p>After you successfully train your model (see <a class="reference internal" href="training.html"><span class="doc std std-doc">Training on YOLOv5</span></a>), you might want to validate your model on different validation sets. In order to validate, we will need a dataset to validate on.</p>
+<pre>
+Avoid validating on any data that was used to train the model. If you're unsure if the images you want to validate on were also part of the dataset you used to train, then double-check what images are included in each dataset (and what datasets are in other datasets) via our spreadsheet: <a href =https://docs.google.com/spreadsheets/d/1qnTFFXdrRZ5QKtECGf_HoBcVre596mKpFtnSKpVMaTI/edit#gid=0>Annotation Dataset Tracking spreadsheet</a>
+</pre>
+<section id="understanding-the-val-py-script">
+<h2>Understanding the <code class="docutils literal notranslate"><span class="pre">val.py</span></code> Script<a class="headerlink" href="#understanding-the-val-py-script" title="Permalink to this heading">#</a></h2>
+<p>To get an idea of how to use <code class="docutils literal notranslate"><span class="pre">val.py</span></code>, let’s see what can figure out by opening it in a text editor, anything works but I’ll use nano: <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">val.py</span></code></p>
+<p><img alt="Step1" src="../_images/step12.png" /></p>
+<p>At the top we should see some examples of how we can use this script. (It’s good practice to include these at the top of your scripts as well.)</p>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h3>
+<p>According to their Usage comment, the following command would validate: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">val.py</span> <span class="pre">--weights</span> <span class="pre">yolov5s.pt</span> <span class="pre">--data</span> <span class="pre">coco128.yaml</span> <span class="pre">--img</span> <span class="pre">640</span></code></p>
+<p>This example seems pretty simple, but only if you use a couple of parameters, there are many settings/parameters that we can pass in, so let’s get an idea of what those look like.</p>
+<p>Scrolling down in this script, we can find a <code class="docutils literal notranslate"><span class="pre">parse_opt</span></code> function and get an idea of all the different parameters we can use (and their defaults).</p>
+<p><img alt="Step2" src="../_images/step22.png" /></p>
+<p>(Can you tell this photo is newer?)</p>
+</section>
+<section id="notable-parameters">
+<h3>Notable parameters:<a class="headerlink" href="#notable-parameters" title="Permalink to this heading">#</a></h3>
+<ul>
+<li>weights - The weight file from training that you're using.
+<li>data - The path to the data.yaml of the dataset you are validating.
+<li>img/imgsz - The dimension of the images in the dataset (assumes it is square).
+<li>name - The name of the job.
+<li>batch-size - The batch-size of the validation job. (Not very necessary)
+<li>save-txt - Saves label results to a text file.
+<li>save-hybrid - Saves label & prediction hybrid results to a text file.
+<li>save-conf - Saves confidences for the labels in the save-txt file.
+</ul>
+<p>If you want to read more about the parameters, there’s a bit more information here: <a class="github reference external" href="https://github.com/ultralytics/yolov5/issues/6507">ultralytics/yolov5#6507</a></p>
+</section>
+</section>
+<section id="preparing-a-validation-dataset">
+<h2>Preparing a Validation Dataset<a class="headerlink" href="#preparing-a-validation-dataset" title="Permalink to this heading">#</a></h2>
+<p>Similar to training, you will need to prepare your dataset for validation. You shouldn’t necessarily apply a bunch of augmentations for validation, but at the very least, the images you validate on should be the same size you train with (640x640, etc.).</p>
+</section>
+<section id="using-val-py">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">val.py</span></code><a class="headerlink" href="#using-val-py" title="Permalink to this heading">#</a></h2>
+<p>Using what we learned about <code class="docutils literal notranslate"><span class="pre">val.py</span></code>, let’s start validating.</p>
+<p>We’ll specify the path for our data.yaml file in the dataset we’re validating on, the path to our best weights from training, the name of the finished training run, and the size of the images in our dataset. We’ll also specify the batch-size, and a few other options to save additional results.</p>
+<p>Command: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">val.py</span> <span class="pre">--data</span> <span class="pre">./data/validation_data/DATASET_NAME/data.yaml</span> <span class="pre">--weights</span> <span class="pre">./runs/train/DATASET_NAME/weights/best.pt</span> <span class="pre">--name</span> <span class="pre">DATASET_NAME</span> <span class="pre">--img</span> <span class="pre">640</span> <span class="pre">--batch-size</span> <span class="pre">32</span> <span class="pre">--save-txt</span> <span class="pre">--save-hybrid</span> <span class="pre">--save-conf</span></code></p>
+<p><img alt="Step3" src="../_images/step31.png" /></p>
+<p>After successfully validating, you will receive a table of metrics that shows your model’s performance on this validation set.</p>
+<p>If you were to validate on the validation data that was used during training, it <i>SHOULD</i> result in roughly the same metrics.</p>
+</section>
+<section id="seeing-the-results">
+<h2>Seeing the Results<a class="headerlink" href="#seeing-the-results" title="Permalink to this heading">#</a></h2>
+<p>All results are saved to the <code class="docutils literal notranslate"><span class="pre">/yolov5/runs/val/DATASET_NAME/</span></code> directory.</p>
+</section>
+<section id="using-easy-val-py">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">easy_val.py</span></code><a class="headerlink" href="#using-easy-val-py" title="Permalink to this heading">#</a></h2>
+<p>In classic <i>Brandon fashion</i>, there exists a script for making using the included <code class="docutils literal notranslate"><span class="pre">val.py</span></code> script a bit easier to use.</p>
+<p><img alt="Step4" src="../_images/step4.png" /></p>
+<p>By running the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">easy_val.py</span></code> you will be prompted for input for the parameters we manually typed in when using <code class="docutils literal notranslate"><span class="pre">val.py</span></code>. It accomplishes the same thing, but in a more manageable way.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>You now know how to:</p>
+<ul>
+<li>Validate a trained model using your own validation dataset
+</ul>
+<hr class="docutils" />
+<p>With this information, you will likely want to continue on to <a class="reference internal" href="predicting.html"><span class="doc std std-doc">Making Predictions with YOLOv5</span></a>.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -441,12 +525,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="training.html"
+       href="results.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Training a YOLOv5 Model</p>
+        <p class="prev-next-title">Visualizing &amp; Analyzing Model Training Metrics</p>
       </div>
     </a>
     <a class="right-next"
@@ -465,7 +549,29 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-val-py-script">Understanding the <code class="docutils literal notranslate"><span class="pre">val.py</span></code> Script</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notable-parameters">Notable parameters:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-validation-dataset">Preparing a Validation Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-val-py">Using <code class="docutils literal notranslate"><span class="pre">val.py</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seeing-the-results">Seeing the Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-easy-val-py">Using <code class="docutils literal notranslate"><span class="pre">easy_val.py</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

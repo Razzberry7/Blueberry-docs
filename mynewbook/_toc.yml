@@ -20,12 +20,14 @@ parts:
     - file: yolo/lambda-linux
     - file: yolo/training
     - file: yolo/predicting
+    - file: yolo/results
     - file: yolo/validating
     - file: yolo/cross-validation
   - caption: Scripts/Tools
     chapters: 
     - file: scripts/scripts
     - file: scripts/software
+    - file: scripts/annotator
   - caption: Misc
     chapters: 
     - file: misc/blueberry

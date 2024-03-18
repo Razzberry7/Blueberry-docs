@@ -194,6 +194,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="venv.html">Virtual Environments in Python Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="predicting.html">Making Predictions with YOLOv5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Visualizing &amp; Analyzing Model Training Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validating.html">Validating a YOLOv5 Model</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
 </ul>
@@ -380,7 +382,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -396,6 +400,23 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-cross-validation">What is Cross-Validation?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-with-yolov5">Cross-Validation with YOLOv5</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmenting-the-dataset">0. Augmenting the Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#folding">1. Folding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-the-folds">2. Train the Folds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assess-each-fold-training">3. Assess Each Fold Training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -407,7 +428,81 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="how-to-perform-k-fold-cross-validation-with-yolov5">
 <h1>How to Perform K-Fold Cross-Validation with YOLOv5<a class="headerlink" href="#how-to-perform-k-fold-cross-validation-with-yolov5" title="Permalink to this heading">#</a></h1>
-<p>IN-PROGRESS</p>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading">#</a></h2>
+<p>When we train our models, there is a possibility that we will underfit or overfit depending on the quality of our data and how we are training. It’s possible that these issues will happen depending on what we’re using in our training dataset and validation dataset.</p>
+<p><img alt="Models" src="../_images/models.png" /></p>
+<p>To tackle this problem, we can perform a special kind of training, <b>K-Fold Cross-Validation</b>. This will allow us to better assess the performance of our model.</p>
+</section>
+<section id="what-is-cross-validation">
+<h2>What is Cross-Validation?<a class="headerlink" href="#what-is-cross-validation" title="Permalink to this heading">#</a></h2>
+<p>The idea with <b>Cross-Validation</b>, is to take a dataset of 100% training data and split it into <b>N folds</b>. Each fold is then considered its own dataset and can be trained.</p>
+<p>The number of folds you use indicate how much of the data will go into training and how much will go into validation.</p>
+<pre>
+<b>Example:</b> 
+
+5 folds = The dataset is broken up into 5 equal parts (20% each fold)
+10 folds = The dataset is broken up into 10 equal parts (10% each fold)
+</pre>
+<p><img alt="Fold" src="../_images/fold.png" /></p>
+</section>
+<section id="cross-validation-with-yolov5">
+<h2>Cross-Validation with YOLOv5<a class="headerlink" href="#cross-validation-with-yolov5" title="Permalink to this heading">#</a></h2>
+<p>To conduct cross-validation with YOLOv5 on Lambda, you will first need a dataset to work with.</p>
+<p>For steps on how to export data from CVAT to Lambda see <a class="reference internal" href="../cvat/exporting.html"><span class="doc std std-doc">Exporting</span></a>.</p>
+<section id="augmenting-the-dataset">
+<h3>0. Augmenting the Dataset<a class="headerlink" href="#augmenting-the-dataset" title="Permalink to this heading">#</a></h3>
+<p>The dataset you want to use will need to be augmented on BEFORE continuing with any other step.</p>
+<p>The screenshot below depicts augmenting the dataset to be in tiles rather than full-sized images (likely the augmentation you will want to perform).</p>
+<p><img alt="Step0" src="../_images/step0.png" /></p>
+<pre>
+It's important to note that you should NOT assign any part of the dataset to valid (or test), as the folding will be handling this step.
+</pre>
+</section>
+<section id="folding">
+<h3>1. Folding<a class="headerlink" href="#folding" title="Permalink to this heading">#</a></h3>
+<p>To fold a dataset of 100% training data, you can use the <code class="docutils literal notranslate"><span class="pre">fold.py</span></code> script in the <code class="docutils literal notranslate"><span class="pre">Yolov5_Scripts</span></code> repository.</p>
+<p>This will ask you for the location of the dataset you want to use, and how many folds to split the dataset up into. This number is almost always going to be 5, but it is possible you want to use something else.</p>
+<p>This script will effectively copy the dataset into 5 variations of the dataset, all of which are trainable.</p>
+<p>To see more details on this script see <span class="xref myst">fold.py</span>.</p>
+<p><img alt="Step1" src="../_images/step1.png" /></p>
+</section>
+<section id="train-the-folds">
+<h3>2. Train the Folds<a class="headerlink" href="#train-the-folds" title="Permalink to this heading">#</a></h3>
+<p>With N folds of the dataset now created, we can then train each fold. If you read <a class="reference internal" href="training.html"><span class="doc std std-doc">Training a YOLOv5 Model</span></a>, then you should know the process of running a 1 training job at a time. In this case, we will perform multiple jobs at once!</p>
+<p>To train multiple folds, you can use the <code class="docutils literal notranslate"><span class="pre">fold_train.py</span></code> script in the <code class="docutils literal notranslate"><span class="pre">Yolov5_Scripts</span></code> repository.</p>
+<p>This will ask you for how many folds there are to train, as well as the path of the dataset that the folds were created from. And then, as with any other training jobs, we will also set a batch-size and number of epochs.</p>
+<pre>
+It is very likely that your ability to run multiple training jobs will be impacted by other students using the GPUs! Be sure to use the command `nvidia-smi` to see the status of GPUs.
+
+You may be able to mitigate this by doing a smaller batch-size!
+</pre>
+<p>More information about this can be found here: <span class="xref myst">CUDA Memory</span></p>
+<p>To see more details on this script see <span class="xref myst">fold_train.py</span>.</p>
+<p><img alt="Step2" src="../_images/step2.png" /></p>
+</section>
+<section id="assess-each-fold-training">
+<h3>3. Assess Each Fold Training<a class="headerlink" href="#assess-each-fold-training" title="Permalink to this heading">#</a></h3>
+<p>Each finished training run will have results saved to <code class="docutils literal notranslate"><span class="pre">/yolov5/runs/train/DATASET/Fold#/</span></code>. Among many files, there will be a results.csv that contains metrics at every epoch of training. You can use this file to assess the performance of the training on that specific fold.</p>
+<p>Over the lifetime of this project, we have used multiple methods of visualizing these results. Unfortunately, with the older forked repo we use, our previous methods of visualizing/analyzing these results are not compatible anymore. So, we have our own way of looking at the results and plotting the metrics.</p>
+<p>See <a class="reference internal" href="results.html"><span class="doc std std-doc">Visualizing Results</span></a> for more information on how to visualize your results from fold training.</p>
+<p><u>The most important aspect of cross-validation is this step.</u> You can compare the metrics between each fold and come to a conclusion about the model’s average performance.</p>
+<p>If any fold performs PARTICULARLY poorly compared to the rest, then you can conclude that there is something wrong with the data being used in the validation set.</p>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>The pipeline/workflow for cross-validation can be represented like so:</p>
+<p><img alt="CrossFoldPipeline" src="../_images/CrossFoldPipeline.png" /></p>
+<hr class="docutils" />
+<p>You now know how to:</p>
+<ul>
+<li>Fold a dataset for cross-validation
+<li>Train multiple datasets at one time
+</ul>
+<hr class="docutils" />
+<p>With this information, you can either continue on to <a class="reference internal" href="predicting.html"><span class="doc std std-doc">Making Predictions with YOLOv5</span></a> or <a class="reference internal" href="validating.html"><span class="doc std std-doc">Validating a YOLOv5 Model</span></a> (depending on what you’re doing).</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -465,7 +560,29 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-cross-validation">What is Cross-Validation?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-with-yolov5">Cross-Validation with YOLOv5</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmenting-the-dataset">0. Augmenting the Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#folding">1. Folding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-the-folds">2. Train the Folds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assess-each-fold-training">3. Assess Each Fold Training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

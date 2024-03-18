@@ -194,6 +194,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Virtual Environments in Python Projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lambda-linux.html">Preparing Lambda &amp; Familiarizing with Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training.html">Training a YOLOv5 Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="predicting.html">Making Predictions with YOLOv5</a></li>
 <li class="toctree-l1"><a class="reference internal" href="validating.html">Validating a YOLOv5 Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cross-validation.html">How to Perform K-Fold Cross-Validation with YOLOv5</a></li>
 </ul>
@@ -437,32 +438,42 @@ IDEs like Pycharm and Visual Studio Code will mitigate the process of creating a
 <pre>
 If you don't have the virtualenv package downloaded, please run: <font color='red'>pip install virtualenv</font> first!
 </pre>
-<p>Wherever you wish to put the virtual environment (on Lambda this is traditionally in <b>/data/drone/YOUR_NAME/</b>), use the following command to make a virtual environment: <font color='red'>virtualenv ./python_env2</font></p>
-<p>This will create an empty virtual environment called “python_env2”, this name can be anything you wish, but for this example we’ll use “python_env2”.</p>
+<p>Wherever you wish to put the virtual environment (on Lambda this is traditionally in <code class="docutils literal notranslate"><span class="pre">/mnt/data2/drone/YOUR_NAME/</span></code>), use the following command to make a virtual environment: <code class="docutils literal notranslate"><span class="pre">virtualenv</span> <span class="pre">./python_env2</span></code></p>
+<p>This will create an empty virtual environment called “python_env2”, <u>this name can be anything you wish</u>, but for this example we’ll use “python_env2”.</p>
 </section>
 <section id="activate-the-virtual-environment">
 <h3>Activate the virtual environment<a class="headerlink" href="#activate-the-virtual-environment" title="Permalink to this heading">#</a></h3>
-<p>With a new virtual environment created, you can then use the command <font color='red'>source python_env2/bin/activate</font> to activate the virtual environment. You’ll know that it is working if you see <code class="docutils literal notranslate"><span class="pre">(python_env2)</span></code> before your cursor on the command line.</p>
+<p>With a new virtual environment created, you can then use the command <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">python_env2/bin/activate</span></code> to activate the virtual environment. You’ll know that it is working if you see <code class="docutils literal notranslate"><span class="pre">(python_env2)</span></code> before your cursor on the command line.</p>
 <p>With the environment active, we can then download packages related to the project, and they should be saved within the python_env2 directories. The easiest &amp; quickest way to ensure that you’re using the right packages and their respective version numbers is by downloading packages from a <b>requirements.txt</b> file (see next section).</p>
 </section>
 <section id="deactivate-the-virtual-environment">
 <h3>Deactivate the virtual environment<a class="headerlink" href="#deactivate-the-virtual-environment" title="Permalink to this heading">#</a></h3>
-<p>In order to exit the environment, simply run: <font color='red'>deactivate</font></p>
-<p>Now, the <code class="docutils literal notranslate"><span class="pre">python</span></code> command will execute whatever the default Python binary is.</p>
+<p>In order to exit the environment, run: <code class="docutils literal notranslate"><span class="pre">deactivate</span></code></p>
+<p>Now, the <code class="docutils literal notranslate"><span class="pre">python</span></code> command will execute scripts with whatever the default (global) environment is.</p>
 </section>
 </section>
 <section id="downloading-packages-from-a-requirements-txt-file">
 <h2>Downloading Packages from a Requirements.txt File<a class="headerlink" href="#downloading-packages-from-a-requirements-txt-file" title="Permalink to this heading">#</a></h2>
-<p>Fortunately, this is pretty simple.</p>
-<p>We can use the pip command to download all packages in the requirements.txt file by using the following command: <font color='red'>pip install -r ./requirements.txt</font></p>
-<p>Requirements.txt files are created manually by the owners of Python projects, so if there is not one present, then you’ll unfortunately have to manually add packages as they come up within scripts.</p>
+<p>Fortunately, this is pretty easy.</p>
+<p>We can use the pip command to download all packages in the requirements.txt file by using the following command: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">./requirements.txt</span></code></p>
+<p>Requirements.txt files are created manually by the developers of Python projects, so if there is not one present, then you’ll unfortunately have to manually add packages as they come up within scripts.</p>
+<pre>
+When running scripts, it will tell you in some error what package the script was expecting. However, it's possible the package it tells you it needs is not using the same name as the package found in pip. 
+
+This is a quirk of packages in Python. 
+
+If you try to pip install the package it tells you it needs and nothing gets installed, try googling alternative names for that package. 
+
+"cv2" is a good example of this, where the actual package is "opencv-python".
+</pre>
 <p>Let’s cover how you can make your own requirements.txt files, that way you can easily share your Python projects with others.</p>
 </section>
 <section id="creating-a-requirements-txt-file">
 <h2>Creating a Requirements.txt File<a class="headerlink" href="#creating-a-requirements-txt-file" title="Permalink to this heading">#</a></h2>
 <p>To create your own requirements.txt files, you need to have an active virtual environment. See above for instructions on creating/activating a virtual environment.</p>
-<p>With a virtual environment active, execute the following command to create a requirements.txt file: <font color='red'>pip freeze &gt; ./requirements.txt</font></p>
-<p>The command “<font color='red'>pip freeze</font>” will output all the currently installed packages, while the “<font color='red'>&gt; FILENAME</font>” portion of the command will save the output of the command into a file. If the file doesn’t already exist, it will create one, otherwise it will overwrite the existing one.</p>
+<p>With a virtual environment active, execute the following command to create a requirements.txt file: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span> <span class="pre">&gt;</span> <span class="pre">./requirements.txt</span></code></p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> will output all the currently installed packages, while the <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">FILENAME</span></code> portion of the command will save the output of the command into (&gt;) a file.</p>
+<p>If the file doesn’t already exist, it will create one, otherwise it will overwrite the existing one.</p>
 </section>
 </section>
 

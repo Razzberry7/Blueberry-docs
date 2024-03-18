@@ -20,8 +20,7 @@ With your python environment active, you can run the script like so: `python YOL
 
 It will prompt you to change the settings for predictions. If you don't, it will use defaults (See below). 
 
-<img src="../../images/yolo/predict/step2.png" alt="step1" style="border: 2px solid gray;">
-
+![Step2](../../images/yolo/predict/step2.png)
 
 If you choose to change the settings, it will ask: 
 <ul>
@@ -37,7 +36,7 @@ It will then ask the path to the images you're making predictions on, where you'
 
 (Behind the scenes, this predictor cuts the image into tiles, makes predictions on those tiles, and then stitches them back together into one whole image.)
 
-<img src="../../images/yolo/predict/step1.png" alt="step1" style="border: 2px solid gray;">
+![Step1](../../images/yolo/predict/step1.png)
 
 ## Seeing the Results
 
@@ -57,13 +56,13 @@ The `scp` command takes two parameters: the location of the file from one area, 
 
 Since the file is on Lambda, you will need to add information about the server: `YOUR_NAME@lambda04.rowan.edu:/path/to/the/file.png`. 
 
-<img src="../../images/yolo/predict/step3.png" alt="step1" style="border: 2px solid gray;">
+![Step3](../../images/yolo/predict/step3.png)
 
 It will ask for your login so that it can fetch the file from the server, and if your paths are all correct you will see the information on the right-hand side change as it copies the file over.
 
 When you copy the file over, head to the destination you set, and open the image. It should look something like this:
 
-<img src="../../images/yolo/predict/step4.jpg" alt="step1" style="border: 2px solid gray;">
+![Step4](../../images/yolo/predict/step4.jpg)
 
 
 ## Conclusion

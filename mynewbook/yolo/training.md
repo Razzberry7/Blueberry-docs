@@ -125,7 +125,7 @@ We have our own script `Train.py` that makes it a bit easier to use the `train.p
 
 The pipeline/workflow for training a single model can be represented like so:
 
-<img src="../../images/yolo/train/TrainingPipeline.png" alt="Models" style="border: 2px solid gray;">
+![Training-Pipeline](../../images/yolo/train/TrainingPipeline.png)
 
 The step of assigning the data can be switched with the step to divide the images into tiles (depends on use case).
 

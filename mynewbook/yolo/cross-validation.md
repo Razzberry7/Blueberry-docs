@@ -4,7 +4,7 @@
 
 When we train our models, there is a possibility that we will underfit or overfit depending on the quality of our data and how we are training. It's possible that these issues will happen depending on what we're using in our training dataset and validation dataset. 
 
-<img src="../../images/yolo/crossval/models.png" alt="Models" style="border: 2px solid gray;">
+![Models](../../images/yolo/crossval/models.png)
 
 To tackle this problem, we can perform a special kind of training, <b>K-Fold Cross-Validation</b>. This will allow us to better assess the performance of our model.
 
@@ -21,8 +21,7 @@ The number of folds you use indicate how much of the data will go into training 
 10 folds = The dataset is broken up into 10 equal parts (10% each fold)
 </pre>
 
-<img src="../../images/yolo/crossval/fold.png" alt="folding" style="border: 2px solid gray;">
-
+![Fold](../../images/yolo/crossval/fold.png)
 
 ## Cross-Validation with YOLOv5
 
@@ -36,7 +35,7 @@ The dataset you want to use will need to be augmented on BEFORE continuing with 
 
 The screenshot below depicts augmenting the dataset to be in tiles rather than full-sized images (likely the augmentation you will want to perform).
 
-<img src="../../images/yolo/crossval/step0.png" alt="step0" style="border: 2px solid gray;">
+![Step0](../../images/yolo/crossval/step0.png)
 
 <pre>
 It's important to note that you should NOT assign any part of the dataset to valid (or test), as the folding will be handling this step.
@@ -52,7 +51,7 @@ This script will effectively copy the dataset into 5 variations of the dataset, 
 
 To see more details on this script see [fold.py](../scripts/scripts.md#foldpy).
 
-<img src="../../images/yolo/crossval/step1.png" alt="step1" style="border: 2px solid gray;">
+![Step1](../../images/yolo/crossval/step1.png)
 
 ### 2. Train the Folds
 
@@ -72,7 +71,7 @@ More information about this can be found here: [CUDA Memory](../yolo/training.md
 
 To see more details on this script see [fold_train.py](../scripts/scripts.md#fold_trainpy).
 
-<img src="../../images/yolo/crossval/step2.png" alt="step2" style="border: 2px solid gray;">
+![Step2](../../images/yolo/crossval/step2.png)
 
 ### 3. Assess Each Fold Training
 
@@ -90,7 +89,7 @@ If any fold performs PARTICULARLY poorly compared to the rest, then you can conc
 
 The pipeline/workflow for cross-validation can be represented like so:
 
-<img src="../../images/yolo/crossval/CrossFoldPipeline.png" alt="cf-pipeline" style="border: 2px solid gray;">
+![CrossFoldPipeline](../../images/yolo/crossval/CrossFoldPipeline.png)
 
 ---
 
