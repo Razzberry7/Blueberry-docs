@@ -418,6 +418,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting">Exporting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autosave">Autosave</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-importing-onto-cvat">Re-Importing onto CVAT</a></li>
 </ul>
             </nav>
@@ -492,6 +493,15 @@ The program will unzip these files, you do NOT need to unzip it yourself.
 <p><img alt="export" src="../_images/export.png" /></p>
 <p>At the top-left, there is a button for exporting. Clicking this will open to your file explorer to save your annotations to a txt file in YOLO format.</p>
 <p><img alt="export_txt" src="../_images/export_txt.png" /></p>
+</section>
+<section id="autosave">
+<h2>Autosave<a class="headerlink" href="#autosave" title="Permalink to this heading">#</a></h2>
+<p><em>NEW in v1.01</em>: autosave! Because there’s no knowing when your power goes out, your PC crashes, or whatever might happen, autosaving your progress is the best way to keep your work from being deleted.</p>
+<p><img alt="autosave" src="../_images/autosave.png" /></p>
+<p>Clicking the <code class="docutils literal notranslate"><span class="pre">Autosave</span></code> button will open a pop-up menu to adjust the autosave time interval. By default, the autosave is turned off. To turn it on, adjust the interval to a value greater than 0.</p>
+<p>Changing the autosave time interval will save the file at that instant if the new amount of time you set has passed. For example, if you had been annotating for 5 minutes already and you set the autosave interval to 2 minutes, it would instantly save because 5 minutes had passed before the most recent autosave (no recent one in this case), which is more than 2 minutes.</p>
+<p>The autosave feature will create a folder named <code class="docutils literal notranslate"><span class="pre">autosaves</span></code> in the folder where your annotation program executable is.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">autosaves</span></code> folder contains the exported annotations for the images you were working on in the YOLO annotation format. These exports are all named as <code class="docutils literal notranslate"><span class="pre">&lt;image_name&gt;_&lt;date&gt;.txt</span></code>.</p>
 </section>
 <section id="re-importing-onto-cvat">
 <h2>Re-Importing onto CVAT<a class="headerlink" href="#re-importing-onto-cvat" title="Permalink to this heading">#</a></h2>
@@ -594,6 +604,7 @@ Written by Brandon McHenry, 3/8/24</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting">Exporting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autosave">Autosave</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#re-importing-onto-cvat">Re-Importing onto CVAT</a></li>
 </ul>
   </nav></div>
