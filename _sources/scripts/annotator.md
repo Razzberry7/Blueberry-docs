@@ -89,6 +89,20 @@ At the top-left, there is a button for exporting. Clicking this will open to you
 
 ![export_txt](../../images/README/export_txt.png)
 
+## Autosave
+
+*NEW in v1.01*: autosave! Because there's no knowing when your power goes out, your PC crashes, or whatever might happen, autosaving your progress is the best way to keep your work from being deleted.
+
+![autosave](../../images/README/autosave.png)
+
+Clicking the `Autosave` button will open a pop-up menu to adjust the autosave time interval. By default, the autosave is turned off. To turn it on, adjust the interval to a value greater than 0.
+
+Changing the autosave time interval will save the file at that instant if the new amount of time you set has passed. For example, if you had been annotating for 5 minutes already and you set the autosave interval to 2 minutes, it would instantly save because 5 minutes had passed before the most recent autosave (no recent one in this case), which is more than 2 minutes.
+
+The autosave feature will create a folder named `autosaves` in the folder where your annotation program executable is. 
+
+The `autosaves` folder contains the exported annotations for the images you were working on in the YOLO annotation format. These exports are all named as `<image_name>_<date>.txt`.
+
 
 ## Re-Importing onto CVAT
 
